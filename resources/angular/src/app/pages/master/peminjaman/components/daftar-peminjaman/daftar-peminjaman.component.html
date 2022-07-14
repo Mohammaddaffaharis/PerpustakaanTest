@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Peminjaman  Buku
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createPeminjaman(formPeminjaman)" *ngIf="isAdmin">
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Peminjaman 
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>Nama Peminjam</td>
+                                <td>Judul Buku</td>
+                                <td>Waktu Peminjaman</td>
+                                <td>Status (Denda Rp. 2,000/Hari setelah hari ke-14)</td>
+                                <td width="90" *ngIf="isAdmin"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listPeminjaman; index as i; trackBy:trackByIndex">
+                                <td>{{val.nama}}</td>
+                                <td>{{val.judul}}</td>
+                                <td *ngIf="val.tanggalKembali==null">{{val.tanggalPinjam}} s/d -</td>
+                                <td *ngIf="val.tanggalKembali!=null">{{val.tanggalPinjam}} s/d {{val.tanggalKembali}} ({{val.hari}} Hari)</td>
+                                <td *ngIf="val.denda!=null"><span class="badge badge-pill badge-danger"style="font-size:14px;">Denda Rp. {{val.denda| number}} (Terlambat {{val.hari-14}} Hari)</span></td>
+                                <td *ngIf="val.denda==null && val.tanggalKembali!=null"><span class="badge badge-pill badge-success" style="font-size:14px;">Buku Sudah Dikembalikan</span></td>
+                                <td *ngIf="val.tanggalKembali==null"><span class="badge badge-pill badge-warning"style="font-size:14px;">Buku Belum Dikembalikan</span></td>
+                                <td class="vertical-middle text-right" *ngIf="isAdmin">
+                                    <a href="javascript: void(0);" class="align-middle mr-2" (click)="updatePeminjaman(formPeminjaman, val)" placement="left" container="body" ngbTooltip="Ubah">
+                                        <i class="fa fa-edit font-size-14"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="align-middle" (click)="deletePeminjaman(val.id)" placement="left" container="body" ngbTooltip="Hapus">
+                                        <i class="fa fa-trash font-size-14"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #formPeminjaman let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">{{titleModal}}</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-form-peminjaman [peminjamanId]="modelId" (afterSave)="modal.close(); getPeminjaman()"></app-form-peminjaman>
+    </div>
+</ng-template>

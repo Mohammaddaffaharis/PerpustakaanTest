@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Buku
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createBuku(formBuku)" *ngIf="isAdmin">
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Buku 
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>Judul Buku</td>
+                                <td>Penulis</td>
+                                <td>Penerbit</td>
+                                <td>Tahun Terbit</td>
+                                <td width="90" *ngIf="isAdmin"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listBuku; index as i; trackBy:trackByIndex">
+                                <td>{{val.judul}}</td>
+                                <td>{{val.penulis}}</td>
+                                <td>{{val.penerbit}}</td>
+                                <td>{{val.tahunTerbit}}</td>
+                                <td class="vertical-middle text-right" *ngIf="isAdmin">
+                                    <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateBuku(formBuku, val)" placement="left" container="body" ngbTooltip="Ubah">
+                                        <i class="fa fa-edit font-size-14"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="align-middle" (click)="deleteBuku(val.id)" placement="left" container="body" ngbTooltip="Hapus">
+                                        <i class="fa fa-trash font-size-14"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #formBuku let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">{{titleModal}}</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-form-buku [bukuId]="modelId" (afterSave)="modal.close(); getBuku()"></app-form-buku>
+    </div>
+</ng-template>

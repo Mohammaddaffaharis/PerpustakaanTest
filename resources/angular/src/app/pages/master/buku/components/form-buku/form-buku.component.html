@@ -1,0 +1,62 @@
+<form>
+    <div class="form-group row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8 text-center">
+            <img *ngIf="formModel.foto!=null" src="http://127.0.0.1:8000/storage/{{formModel.foto}}" alt="" class="img-fluid">
+            <img *ngIf="formModel.foto==null" src="http://127.0.0.1:8000/assets/img/no-image.png" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Judul Buku</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.judul" type="text" name="judulBuku" class="form-control"
+                placeholder="Judul Buku">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Penulis</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.penulis" type="text" name="penulis" class="form-control"
+                placeholder="Penulis Buku">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Penerbit</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.penerbit" type="text" name="penerbit" class="form-control"
+                placeholder="Penerbit Buku">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Deskripsi Singkat</label>
+        <div class="col-md-8">
+            <textarea class="form-control" [(ngModel)]="formModel.deskripsi" name="deskripsi"
+                placeholder="Tuliskan detail mengenai buku ini" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Tahun Terbit</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.tahunTerbit" type="number" name="tahunTerbit" min="1900" max="2099" step="1" value="2022" class="form-control"
+                placeholder="Tahun Terbit">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Upload Foto</label>
+        <div class="col-md-8">
+            <input  type="file" name="foto" class="form-control" accept=".jpg" (change)="onFileSelected($event)">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4"></label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+        </div>
+    </div>
+    
+</form>

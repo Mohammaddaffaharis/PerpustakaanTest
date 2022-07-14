@@ -1,0 +1,61 @@
+
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Nama User</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.user"[items]="listUser" bindLabel="nama" placeholder="Pilih User Penerima" name="namaUser" appendTo="body"></ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Pilih Buku</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.buku" [items]="listBuku" bindLabel="judul" placeholder="Pilih Buku" name="namaBuku" appendTo="body"></ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row" *ngIf="!isUpdate">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-md-4 required">Tanggal Peminjaman</label>
+                    <div class="col-md-8">
+                        <input type="date" name="tanggal"  [(ngModel)]="formModel.tanggalPinjam" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row" *ngIf="isUpdate">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Tanggal Peminjaman</label>
+                <div class="col-md-8">
+                    <input type="date" name="tanggalPinjam"  [(ngModel)]="formModel.tanggalPinjam" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Tanggal Pengembalian</label>
+                <div class="col-md-8">
+                    <input type="date" name="tanggalKembali"  [(ngModel)]="formModel.tanggalKembali" class="form-control" min="{{formModel.tanggalPinjam}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Daftar Peminjaman</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
