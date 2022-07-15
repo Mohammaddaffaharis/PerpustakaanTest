@@ -8,7 +8,7 @@ export class BukuService {
 
   constructor(private landaService: LandaService) { }
   getBuku(arrParameter) {
-    return this.landaService.DataGet('/v1/buku', { arrParameter });
+    return this.landaService.DataGet('/v1/buku', arrParameter);
   }
   getBukuById(bukuId) {
     return this.landaService.DataGet('/v1/buku/' + bukuId);

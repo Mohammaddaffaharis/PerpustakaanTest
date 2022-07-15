@@ -33,10 +33,7 @@ class PeminjamanController extends Controller
     }
     public function indexx(Request $request)
     {
-        $filter = ['id' => $request->id ?? ''];
-        //dd($filter);
         $listPeminjaman['data'] = $this->peminjamanModel->getAlls();
-        //dd($listPeminjaman);
         return $listPeminjaman;
     }
     public function show($id)
@@ -103,5 +100,16 @@ class PeminjamanController extends Controller
         }
 
         return response()->success($dataPeminjaman);
+    }
+    public function getLaporanUser(Request $request)
+    {
+        $listPeminjaman['data'] = $this->peminjamanModel->getAllByUser($request);
+        return $listPeminjaman;
+
+    }
+    public function getLaporanBuku(Request $request)
+    {
+        $listPeminjaman['data'] = $this->peminjamanModel->getAllByBuku($request);
+        return $listPeminjaman;
     }
 }

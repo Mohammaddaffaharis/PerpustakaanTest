@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table datatable [dtOptions]="dtOptions" data-page-length="5" class="table table-hover">
                         <thead class="thead-light">
                             <tr>
                                 <td width="80"></td>
@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listUser; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listUser; index as i;">
                                 <td><img src="http://127.0.0.1:8000/storage/{{val.fotoUrl}}" class="rounded-circle header-profile-user"></td>
                                 
                                 <td class="vertical-middle">{{val.nama}}</td>
@@ -58,6 +58,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <user-form [userId]="modelId" (afterSave)="modal.close(); getUser()"></user-form>
+        <user-form [userId]="modelId" (afterSave)="modal.close(); getUser(); reloadDataTable();"></user-form>
     </div>
 </ng-template>

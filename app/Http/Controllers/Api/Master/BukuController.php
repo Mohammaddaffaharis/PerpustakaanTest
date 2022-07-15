@@ -25,7 +25,7 @@ class BukuController extends Controller
     public function index(Request $request)
     {
         $filter = ['nama' => $request->nama ?? ''];
-        $listBuku = $this->buku->getAll($filter, 5, $request->sort ?? '');
+        $listBuku = $this->buku->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
 
         return response()->success(new BukuCollection($listBuku));
     }

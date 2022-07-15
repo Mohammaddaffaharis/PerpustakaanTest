@@ -9,7 +9,7 @@ export class RoleService {
     constructor(private landaService: LandaService) { }
 
     getRoles(arrParameter) {
-        return this.landaService.DataGet('/v1/roles', { arrParameter });
+        return this.landaService.DataGet('/v1/roles', arrParameter);
     }
 
     getRoleById(roleId) {

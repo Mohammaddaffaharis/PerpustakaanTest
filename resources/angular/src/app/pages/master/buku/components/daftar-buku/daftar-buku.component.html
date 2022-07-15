@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover" datatable [dtOptions]="dtOptions" data-page-length="5">
                         <thead class="thead-light">
                             <tr>
                                 <td>Judul Buku</td>
@@ -24,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listBuku; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listBuku; index as i;">
                                 <td>{{val.judul}}</td>
                                 <td>{{val.penulis}}</td>
                                 <td>{{val.penerbit}}</td>
@@ -54,6 +54,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-form-buku [bukuId]="modelId" (afterSave)="modal.close(); getBuku()"></app-form-buku>
+        <app-form-buku [bukuId]="modelId" (afterSave)="modal.close(); getBuku(); reloadDataTable();"></app-form-buku>
     </div>
 </ng-template>

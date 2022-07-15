@@ -26,7 +26,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $filter = ['nama' => $request->nama ?? ''];
-        $roles = $this->role->getAll($filter, 5, $request->sort ?? '');
+        $roles = $this->role->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
 
         return response()->success(new RoleCollection($roles));
     }

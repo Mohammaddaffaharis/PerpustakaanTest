@@ -25,10 +25,12 @@ import { DaftarPeminjamanComponent } from './peminjaman/components/daftar-peminj
 import { FormPeminjamanComponent } from './peminjaman/components/form-peminjaman/form-peminjaman.component';
 import { EditProfileComponent } from './users/components/edit-profile/edit-profile.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { LaporanBukuComponent } from './Laporan/laporan-buku/components/laporan-buku.component';
+import { LaporanUserComponent } from './Laporan/laporan-user/components/laporan-user.component';
 
 
 @NgModule({
-    declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, DaftarBukuComponent, FormBukuComponent, DaftarPeminjamanComponent, FormPeminjamanComponent,EditProfileComponent],
+    declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, DaftarBukuComponent, FormBukuComponent, DaftarPeminjamanComponent, FormPeminjamanComponent,EditProfileComponent, LaporanBukuComponent, LaporanUserComponent],
     imports: [
         CommonModule,
         MasterRoutingModule,

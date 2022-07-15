@@ -111,6 +111,8 @@ export class FormRolesComponent implements OnInit {
     getRole(roleId) {
         this.roleService.getRoleById(roleId).subscribe((res: any) => {
             this.formModel.id = res.data.id;
+            console.log(res.data);
+            
             this.formModel.nama = res.data.nama;
             
             // Detail hak akses
@@ -118,6 +120,7 @@ export class FormRolesComponent implements OnInit {
             for (const key in akses) {
                 this.formModel.akses[key] = akses[key];
             }
+            console.log(this.formModel);
         }, err => {
             console.log(err);
         });

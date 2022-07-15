@@ -29,9 +29,12 @@
                                 <td>{{val.judul}}</td>
                                 <td *ngIf="val.tanggalKembali==null">{{val.tanggalPinjam}} s/d -</td>
                                 <td *ngIf="val.tanggalKembali!=null">{{val.tanggalPinjam}} s/d {{val.tanggalKembali}} ({{val.hari}} Hari)</td>
-                                <td *ngIf="val.denda!=null"><span class="badge badge-pill badge-danger"style="font-size:14px;">Denda Rp. {{val.denda| number}} (Terlambat {{val.hari-14}} Hari)</span></td>
-                                <td *ngIf="val.denda==null && val.tanggalKembali!=null"><span class="badge badge-pill badge-success" style="font-size:14px;">Buku Sudah Dikembalikan</span></td>
-                                <td *ngIf="val.tanggalKembali==null"><span class="badge badge-pill badge-warning"style="font-size:14px;">Buku Belum Dikembalikan</span></td>
+
+                                <td *ngIf="val.tanggalKembali!=null && val.denda != null"><span class="badge badge-pill badge-danger"style="font-size:12px; vertical-align: middle;">Denda Rp. {{val.denda| number}} (Terlambat {{val.hari-14}} Hari)</span></td>
+                                <td *ngIf="val.tanggalKembali!=null && val.denda == null"><span class="badge badge-pill badge-success" style="font-size:12px; vertical-align: middle;">Buku Sudah Dikembalikan</span></td>
+                                <td *ngIf="val.tanggalKembali==null && val.denda == null"><span class="badge badge-pill badge-warning"style="font-size:12px; vertical-align: middle;">Buku Belum Dikembalikan</span></td>
+                                <td *ngIf="val.tanggalKembali==null && val.denda != null"><span class="badge badge-pill badge-warning"style="font-size:12px; vertical-align: middle;">Buku Belum Dikembalikan</span> <br> <span class="badge badge-pill badge-danger"style="font-size:12px; vertical-align: middle;">Denda Rp. {{val.denda| number}} (Terlambat {{val.hari-14}} Hari)</span></td>
+                                
                                 <td class="vertical-middle text-right" *ngIf="isAdmin">
                                     <a href="javascript: void(0);" class="align-middle mr-2" (click)="updatePeminjaman(formPeminjaman, val)" placement="left" container="body" ngbTooltip="Ubah">
                                         <i class="fa fa-edit font-size-14"></i>

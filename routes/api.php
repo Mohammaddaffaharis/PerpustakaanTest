@@ -49,15 +49,6 @@ Route::prefix('v1')->group(function () {
     Route::put('/roles', [RoleController::class, 'update'])->middleware(['web', 'auth.api:roles_update']);
     Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->middleware(['web', 'auth.api:roles_delete']);
 
-     /**
-     * CRUD customer
-     */
-    Route::get('/customers', [CustomerController::class, 'index'])->middleware(['web', 'auth.api:customer_view']);
-    Route::get('/customers/{id}', [CustomerController::class, 'show'])->middleware(['web', 'auth.api:customer_view']);
-    Route::post('/customers', [CustomerController::class, 'store'])->middleware(['web', 'auth.api:customer_create']);
-    Route::put('/customers', [CustomerController::class, 'update'])->middleware(['web', 'auth.api:customer_update']);
-    Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->middleware(['web', 'auth.api:customer_delete']);
-
     /**
      * CRUD Buku
      */
@@ -75,15 +66,12 @@ Route::prefix('v1')->group(function () {
     Route::post('/peminjaman', [PeminjamanController::class, 'store'])->middleware(['web', 'auth.api:peminjaman_create']);
     Route::put('/peminjaman', [PeminjamanController::class, 'update'])->middleware(['web', 'auth.api:peminjaman_update']);
     Route::delete('/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->middleware(['web', 'auth.api:peminjaman_delete']);
-     /**
-     * CRUD items / produk
-     */
-    Route::get('/items', [ItemController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/items/{id}', [ItemController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
-    Route::post('/items', [ItemController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
-    Route::put('/items', [ItemController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
-    Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
 
+    /**
+     * Read Laporan
+     */
+    Route::get('/laporanUser', [PeminjamanController::class, 'getLaporanUser'])->middleware(['web', 'auth.api:peminjaman_view']);
+    Route::get('/laporanBuku', [PeminjamanController::class, 'getLaporanBuku'])->middleware(['web', 'auth.api:peminjaman_view']);
     /**
      * Route khusus authentifikasi
      */
@@ -93,6 +81,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/profile', [AuthController::class, 'profile'])->middleware(['auth.api']);
         Route::get('/csrf', [AuthController::class, 'csrf'])->middleware(['web']);
     });
+
 });
 
 Route::get('/', function () {

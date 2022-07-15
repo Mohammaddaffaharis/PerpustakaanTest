@@ -84,7 +84,6 @@ export class FormBukuComponent implements OnInit {
             this.formModel.foto = null;
         }
         this.bukuService.updateBuku(this.formModel).subscribe((res : any) => {
-            console.log(this.formModel);
             this.landaService.alertSuccess('Berhasil', res.message);
             this.afterSave.emit();
         }, err => {

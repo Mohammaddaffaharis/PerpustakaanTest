@@ -32,7 +32,9 @@ class UserController extends Controller
             'nama' => $request->nama ?? '',
             'email' => $request->email ?? '',
         ];
-        $users = $this->user->getAll($filter, 5, $request->sort ?? '');
+        //dd($request->all());
+        $users = $this->user->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
+        
 
         return response()->success(new UserCollection($users));
     }

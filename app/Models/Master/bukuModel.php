@@ -57,8 +57,8 @@ class bukuModel extends Model implements ModelInterface
         }
 
         $sort = $sort ?: 'id DESC';
-        $buku->orderByRaw($sort);
-        $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
+        $buku->orderByRaw($sort?: 'id DESC');
+        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : false;  
         
         return $buku->paginate($itemPerPage)->appends('sort', $sort);
     }

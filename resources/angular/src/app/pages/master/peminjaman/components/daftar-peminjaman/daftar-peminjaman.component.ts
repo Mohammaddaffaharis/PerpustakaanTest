@@ -33,7 +33,7 @@ export class DaftarPeminjamanComponent implements OnInit {
     if (this.userLogin.akses == 'user'){
       this.getPeminjamanUser(this.userLogin.id);
       this.isAdmin = false;
-    } else if (this.userLogin.akses == 'Super Admin'){
+    } else if (this.userLogin.akses == 'Super Admin' || this.userLogin.akses == 'Admin'){
       this.getPeminjaman();
       this.isAdmin = true;
     }

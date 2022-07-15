@@ -9,7 +9,7 @@ export class UserService {
     constructor(private landaService: LandaService) { }
 
     getUsers(arrParameter) {
-        return this.landaService.DataGet('/v1/users', {arrParameter});
+        return this.landaService.DataGet('/v1/users', arrParameter);
     }
 
     getUserById(userId) {

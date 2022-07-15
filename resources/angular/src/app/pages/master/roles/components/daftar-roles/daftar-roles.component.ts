@@ -12,7 +12,6 @@ import { RoleService } from '../../services/role-service.service';
     styleUrls: ['./daftar-roles.component.scss']
 })
 export class DaftarRolesComponent implements OnInit {
-    // Datatable
     @ViewChild(DataTableDirective) dtElement: DataTableDirective;
     dtInstance: Promise<DataTables.Api>;
     dtOptions: any;
@@ -30,16 +29,12 @@ export class DaftarRolesComponent implements OnInit {
     ngOnInit(): void {
         this.getRoles();
     }
-
-    trackByIndex(index: number): any {
-        return index;
-    }
-
-    reloadDataTable(): void {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.draw();
+    reloadDataTable():void{
+        this.dtElement.dtInstance.then((dtInstance:DataTables.Api)=>{
+          dtInstance.draw();
         });
-    }
+      }
+
 
     getRoles() {
         this.dtOptions = {
@@ -48,12 +43,15 @@ export class DaftarRolesComponent implements OnInit {
             ordering: false,
             pagingType: 'full_numbers',
             ajax: (dataTablesParameters: any, callback) => {
+                const page = 
+                    parseInt(dataTablesParameters.start) /
+                    parseInt(dataTablesParameters.length)+1;
                 const params = {
-                    filter: JSON.stringify({}),
+                    page: page,
                     offset: dataTablesParameters.start,
                     limit: dataTablesParameters.length,
                 };
-                this.roleService.getRoles([]).subscribe((res: any) => {
+                this.roleService.getRoles(params).subscribe((res: any) => {
                     this.listRoles = res.data.list;
 
                     callback({
@@ -98,7 +96,7 @@ export class DaftarRolesComponent implements OnInit {
             if (result.value) {
                 this.roleService.deleteRole(roleId).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
-                    this.getRoles();
+                    this.reloadDataTable();
                 }, err => {
                     console.log(err);
                 });
