@@ -28,6 +28,7 @@ class RoleRequest extends FormRequest
     {
         return [
             'nama' => "required|unique:user_roles,nama,{$this->id}|max:50", // Validasi nama unik berdasarkan data di tabel user_roles pengecualian untuk data dg id yang dikirim via request
+            'isAdmin' => "required", // Validasi nama unik berdasarkan data di tabel user_roles pengecualian untuk data dg id yang dikirim via request
             'akses' => 'required'
         ];
     }

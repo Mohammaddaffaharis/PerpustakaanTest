@@ -13,24 +13,33 @@
                 <li class="nav-item dropdown" ngbDropdown>
                     <a class="nav-link dropdown-toggle arrow-none text-dark" (click)="onMenuClick($event)"
                         href="javascript: void(0);" id="topnav-components" role="button" ngbDropdownToggle>
-                        Pengaturan
+                        Master
                         <div class="arrow-down"></div>
                     </a>
                     <div class="dropdown-menu row" aria-labelledby="topnav-dashboard" ngbDropdownMenu>
                         <a *ngIf="isAdmin" href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/users']">User</a>
                         <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/buku']">Buku</a>
-                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/peminjaman']">Peminjaman</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown" ngbDropdown>
+                    <a class="nav-link dropdown-toggle arrow-none text-dark" (click)="onMenuClick($event)"
+                        href="javascript: void(0);" id="topnav-components" role="button" ngbDropdownToggle>
+                        Transaksi
+                        <div class="arrow-down"></div>
+                    </a>
+                    <div class="dropdown-menu row" aria-labelledby="topnav-dashboard" ngbDropdownMenu>
+                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/transaksi/peminjaman']">Peminjaman</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown" ngbDropdown *ngIf="isAdmin">
                     <a class="nav-link dropdown-toggle arrow-none text-dark" (click)="onMenuClick($event)"
                         href="javascript: void(0);" id="topnav-components" role="button" ngbDropdownToggle>
                         Laporan
                         <div class="arrow-down"></div>
                     </a>
                     <div class="dropdown-menu row" aria-labelledby="topnav-dashboard" ngbDropdownMenu>
-                        <a *ngIf="isAdmin" href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/laporanUsers']">User</a>
-                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/laporanBuku']">Buku</a>
+                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/laporan/laporanUsers']">User</a>
+                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/laporan/laporanBuku']">Buku</a>
                     </div>
                 </li>
             </ul>

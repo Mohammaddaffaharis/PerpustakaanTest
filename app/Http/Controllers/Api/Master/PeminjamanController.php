@@ -109,6 +109,15 @@ class PeminjamanController extends Controller
     }
     public function getLaporanBuku(Request $request)
     {
+        //dd($request->tanggalKembali);
+        //$request->tanggalPinjam == "null" ? null : $request->tanggalPinjam;
+        //$request->tanggalKembali = $request->tanggalKembali == "null" ? "sadsad" : "hubla";
+        // if($request->tanggalKembali  == "null"){
+        //     "sadsad";
+        // } else{
+        //     "hubla";
+        // };
+        //dd($request->all());
         $listPeminjaman['data'] = $this->peminjamanModel->getAllByBuku($request);
         return $listPeminjaman;
     }

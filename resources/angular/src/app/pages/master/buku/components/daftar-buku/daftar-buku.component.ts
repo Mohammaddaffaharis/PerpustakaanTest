@@ -33,9 +33,9 @@ export class DaftarBukuComponent implements OnInit {
       this.authService.getProfile().subscribe((user: any) => {
         this.userLogin = user;
       });
-      if (this.userLogin.akses == 'user'){
+      if (this.userLogin.isAdmin == '0'){
         this.isAdmin = false;
-      } else if (this.userLogin.akses == 'Super Admin' || this.userLogin.akses == 'Admin'){
+      } else if (this.userLogin.isAdmin == '1'){
         this.isAdmin = true;
       }
   }

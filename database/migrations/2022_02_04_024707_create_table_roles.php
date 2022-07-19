@@ -20,6 +20,7 @@ class CreateTableRoles extends Migration
             $table->id();
             $table->char('nama', 50); // Membuat kolom "nama" dengan tipe data CHAR & 50 karakter
             $table->text('akses'); // Membuat kolom "akses" dengan tipe data TEXT
+            $table->char('isAdmin');
             $table->enum('is_deleted', [1, 0])->default(0); // Membuat kolom "is_deleted" dengan tipe data ENUM(1,0) dan DEFAULT nya adalah 0
             $table->timestamps(); // Generate created_at & updated_at
             $table->softDeletes(); // Generate deleted_at

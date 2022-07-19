@@ -16,6 +16,7 @@ import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './pages/auth/services/auth.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 initFirebaseBackend(environment.firebaseConfig);
 
@@ -24,6 +25,7 @@ initFirebaseBackend(environment.firebaseConfig);
         AppComponent,
     ],
     imports: [
+        NgSelectModule,
         BrowserModule,
         BrowserAnimationsModule,
         LayoutsModule,

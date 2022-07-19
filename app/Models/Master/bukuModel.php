@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Concerns\HasRelationships;
 
 class bukuModel extends Model implements ModelInterface
 {
-    use SoftDeletes, RecordSignature, HasRelationships, HasFactory;
+    use SoftDeletes, HasRelationships, HasFactory;
 
      /**
      * Menentukan nama tabel yang terhubung dengan Class ini
@@ -58,7 +58,7 @@ class bukuModel extends Model implements ModelInterface
 
         $sort = $sort ?: 'id DESC';
         $buku->orderByRaw($sort?: 'id DESC');
-        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : false;  
+        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : $this->query()->count();  
         
         return $buku->paginate($itemPerPage)->appends('sort', $sort);
     }

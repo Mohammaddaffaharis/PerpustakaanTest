@@ -75,7 +75,7 @@ export class FormPeminjamanComponent implements OnInit {
     }
   }
   getUser() {
-    this.userService.getUsers([]).subscribe((res: any) => {
+    this.userService.getUsers({isAdmin:false}).subscribe((res: any) => {
         this.listUser = res.data.list;
     }, (err: any) => {
         console.log(err);

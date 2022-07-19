@@ -32,12 +32,12 @@ import { LaporanUserComponent } from './Laporan/laporan-user/components/laporan-
 @NgModule({
     declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, DaftarBukuComponent, FormBukuComponent, DaftarPeminjamanComponent, FormPeminjamanComponent,EditProfileComponent, LaporanBukuComponent, LaporanUserComponent],
     imports: [
+        NgSelectModule,
         CommonModule,
         MasterRoutingModule,
         NgbModule,
         NgbTooltipModule,
         NgbModalModule,
-        NgSelectModule,
         FormsModule,
         DataTablesModule,
         NgxDaterangepickerMd.forRoot()

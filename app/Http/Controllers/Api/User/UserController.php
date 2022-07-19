@@ -31,6 +31,8 @@ class UserController extends Controller
         $filter = [
             'nama' => $request->nama ?? '',
             'email' => $request->email ?? '',
+            'isAdmin' => $request->isAdmin ?? false,
+
         ];
         //dd($request->all());
         $users = $this->user->getAll($filter, $request->limit ?? 0, $request->sort ?? '');

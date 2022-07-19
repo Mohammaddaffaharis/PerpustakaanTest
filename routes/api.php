@@ -70,8 +70,8 @@ Route::prefix('v1')->group(function () {
     /**
      * Read Laporan
      */
-    Route::get('/laporanUser', [PeminjamanController::class, 'getLaporanUser'])->middleware(['web', 'auth.api:peminjaman_view']);
-    Route::get('/laporanBuku', [PeminjamanController::class, 'getLaporanBuku'])->middleware(['web', 'auth.api:peminjaman_view']);
+    Route::get('/laporanUser', [PeminjamanController::class, 'getLaporanUser'])->middleware(['web', 'auth.api:laporanUser_view']);
+    Route::get('/laporanBuku', [PeminjamanController::class, 'getLaporanBuku'])->middleware(['web', 'auth.api:laporanBuku_view']);
     /**
      * Route khusus authentifikasi
      */

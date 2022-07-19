@@ -7,8 +7,22 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
-
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Filter</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Tanggal Pinjam</label>
+                            <input type="date" name="tanggalPinjam" class="form-control" (change)="SendDataonChangePinjam($event)"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Tanggal Kembali</label>
+                            <input type="date" name="tanggalKembali" class="form-control"   (change)="SendDataonChangeKembali($event)" min="{{tanggal.tanggalPinjam}}"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -18,7 +32,7 @@
                                 <td rowspan="2" class="align-middle" style="text-align: center;">Tahun Terbit</td>
                                 <td rowspan="2" class="align-middle" style="text-align: center;">Penerbit</td>
                                 <td rowspan="2" class="align-middle" style="text-align: center;">Penulis</td>
-                                <td colspan="4" class="align-middle" style="text-align: center;">Peminjam</td>
+                                <td colspan="5" class="align-middle" style="text-align: center;">Peminjam</td>
                                 <td rowspan="2" class="align-middle" style="text-align: center;">Total Hari Pinjam</td>
                                 <td rowspan="2" class="align-middle" style="text-align: center;">Total Denda</td>
                             </tr>
@@ -27,6 +41,7 @@
                                 <td class="align-middle" style="text-align: center;">Tanggal Peminjaman</td>
                                 <td class="align-middle" style="text-align: center;">Tanggal Pengembalian</td>
                                 <td class="align-middle" style="text-align: center;">Status</td>
+                                <td class="align-middle" style="text-align: center;">Denda</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,10 +56,10 @@
                                     <td *ngIf="x['tanggalKembali']!==null">{{x['tanggalKembali']}}</td>
                                     <td *ngIf="x['tanggalKembali']===null">-</td>
 
-                                    <td *ngIf="x['tanggalKembali']===null && x['denda']==null"><span class="badge badge-pill badge-warning"style="font-size:12px; vertical-align: middle;">Buku Belum Dikembalikan</span></td>
-                                    <td *ngIf="x['tanggalKembali']===null && x['denda']!=null"><span class="badge badge-pill badge-warning"style="font-size:12px; vertical-align: middle;">Buku Belum Dikembalikan</span> <span class="badge badge-pill badge-danger"style="font-size:12px; vertical-align: middle;">Denda Rp. {{x['denda']| number}} (Terlambat {{x['hari']-14}} Hari)</span></td>
-                                    <td *ngIf="x['tanggalKembali']!==null && x['denda']!=null"><span class="badge badge-pill badge-danger"style="font-size:12px; vertical-align: middle;">Denda Rp. {{x['denda']| number}} (Terlambat {{x['hari']-14}} Hari)</span></td>
-                                    <td *ngIf="x['tanggalKembali']!==null && x['denda']==null"><span class="badge badge-pill badge-success" style="font-size:12px; vertical-align: middle;">Buku Sudah Dikembalikan</span></td>
+                                    <td *ngIf="x['tanggalKembali']===null"><span class="badge badge-pill badge-warning"style="font-size:12px; vertical-align: middle;">Buku Belum Dikembalikan</span></td>
+                                    <td *ngIf="x['tanggalKembali']!==null"><span class="badge badge-pill badge-success"style="font-size:12px; vertical-align: middle;">Buku Sudah Dikembalikan</span><br></td>
+                                    <td *ngIf="x['denda']!=null"><span class="badge badge-pill badge-danger"style="font-size:12px; vertical-align: middle;">Denda Rp. {{x['denda']| number}} (Terlambat {{x['hari']-14}} Hari)</span></td>
+                                    <td *ngIf=" x['denda']==null"><span class="badge badge-pill badge-success" style="font-size:12px; vertical-align: middle;">Tidak Ada Denda</span></td>
                                     <td [rowSpan]="val.length" *ngIf="j ===0 && listHari[i] !==0" style="vertical-align: middle;">{{listHari[i] | number}} Hari</td>
                                     <td [rowSpan]="val.length" *ngIf="j ===0 && listHari[i] ===0" style="vertical-align: middle;">-</td>
                                     <td [rowSpan]="val.length" *ngIf="j ===0 && listDenda[i] !==0" style="vertical-align: middle;">Rp. {{listDenda[i] | number}}</td>
@@ -52,6 +67,13 @@
                                 </tr>
                             </ng-container>
                         </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold;">
+                                <td colspan="9" style="text-align: right;">Total</td>
+                                <td>{{totalHari}} Hari</td>
+                                <td>Rp.{{totalDenda | number}}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

@@ -46,7 +46,7 @@ class RoleController extends Controller
             return response()->failed($request->validator->errors(), 422);
         }
         
-        $dataInput = $request->only(['nama', 'akses']);
+        $dataInput = $request->only(['nama', 'akses','isAdmin']);
         $dataRole = $this->role->create($dataInput);
         
         if(!$dataRole['status']) {
@@ -87,7 +87,7 @@ class RoleController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['nama', 'akses', 'id']);
+        $dataInput = $request->only(['nama', 'akses', 'id','isAdmin']);
         $dataRole = $this->role->update($dataInput, $dataInput['id']);
         
         if(!$dataRole['status']) {

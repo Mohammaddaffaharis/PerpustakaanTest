@@ -5,6 +5,17 @@
             <input [(ngModel)]="formModel.nama" type="text" name="nama" class="form-control"
                 placeholder="Nama Hak Akses">
         </div>
+        <label class="col-md-4 required">isAdmin</label>
+        <div class="col-md-8">
+            <div class="btn-group" role="group" ngbRadioGroup name="tipe" [(ngModel)]="formModel.isAdmin">
+                <label ngbButtonLabel class="btn-info">
+                    <input ngbButton type="radio" class="btn-check" value="1"> Ya
+                </label>
+                <label ngbButtonLabel class="btn-info">
+                    <input ngbButton type="radio" class="btn-check" value="0"> Tidak
+                </label>
+            </div>
+        </div>
     </div>
     <div class="form-group row mt-4">
         <div class="col-md-12">
@@ -114,6 +125,23 @@
                                         </div>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Transaksi">
+                    <ng-template ngbTabContent>
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Nama Menu / Fitur</th>
+                                    <th class="text-center">View</th>
+                                    <th class="text-center">Create</th>
+                                    <th class="text-center">Update</th>
+                                    <th class="text-center">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <tr>
                                     <td>Peminjaman</td>
                                     <td class="text-center">
@@ -141,14 +169,67 @@
                         </table>
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Transaksi">
-                    <ng-template ngbTabContent>
-                       
-                    </ng-template>
-                </ngb-tab>
                 <ngb-tab title="Laporan">
                     <ng-template ngbTabContent>
-                        
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Nama Menu / Fitur</th>
+                                    <th class="text-center">View</th>
+                                    <th class="text-center">Create</th>
+                                    <th class="text-center">Update</th>
+                                    <th class="text-center">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Buku</td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanBuku.view" name="laporanBuku_view" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanBuku.create" name="laporanBuku_create" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanBuku.update" name="laporanBuku_update" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanBuku.delete" name="laporanBuku_delete" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>User</td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanUser.view" name="laporanUser_view" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanUser.create" name="laporanUser_create" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanUser.update" name="laporanUser_update" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input [(ngModel)]="formModel.akses.laporanUser.delete" name="laporanUser_delete" class="form-check-input" type="checkbox" value="true">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>

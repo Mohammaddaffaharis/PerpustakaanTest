@@ -4,7 +4,7 @@ import { LandaService } from 'src/app/core/services/landa.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LaporanBukuService {
+export class LaporanUserService {
 
   constructor(private landaService: LandaService) { }
   getLaporanUser(arrParameter) {

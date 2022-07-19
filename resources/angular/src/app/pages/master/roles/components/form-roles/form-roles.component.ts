@@ -16,6 +16,7 @@ export class FormRolesComponent implements OnInit {
     formModel: {
         id: number,
         nama: string,
+        isAdmin: string,
         akses: {
             user: {
                 create: boolean,
@@ -47,6 +48,18 @@ export class FormRolesComponent implements OnInit {
                 delete: boolean,
                 view: boolean,
             },
+            laporanBuku: {
+                create: boolean,
+                update: boolean,
+                delete: boolean,
+                view: boolean,
+            },
+            laporanUser: {
+                create: boolean,
+                update: boolean,
+                delete: boolean,
+                view: boolean,
+            },
         },
     }
 
@@ -68,6 +81,7 @@ export class FormRolesComponent implements OnInit {
         this.formModel = {
             id: 0,
             nama: '',
+            isAdmin: '0',
             akses: {
                 user: {
                     create: false,
@@ -98,6 +112,18 @@ export class FormRolesComponent implements OnInit {
                     update: false,
                     delete: false,
                     view: false,
+                },
+                laporanBuku: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                laporanUser: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
                 }
             },
         }
@@ -114,6 +140,7 @@ export class FormRolesComponent implements OnInit {
             console.log(res.data);
             
             this.formModel.nama = res.data.nama;
+            this.formModel.isAdmin = res.data.isAdmin;
             
             // Detail hak akses
             const akses = res.data.akses;

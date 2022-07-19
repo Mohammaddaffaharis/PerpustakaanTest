@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-
+use \App\Models\User\UserModel;
+use \App\Models\Master\bukuModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            UserSeeder::class,
+        ]);
+        bukuModel::factory(30)->create();
+        UserModel::factory(30)->create();
     }
 }

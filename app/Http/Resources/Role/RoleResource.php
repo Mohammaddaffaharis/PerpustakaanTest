@@ -17,6 +17,7 @@ class RoleResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'nama' => $this->resource->nama,
+            'isAdmin' => $this->resource->isAdmin,
             'akses' => json_decode($this->resource->akses, TRUE),
         ];
     }

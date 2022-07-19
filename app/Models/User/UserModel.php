@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Model untuk tabel user_auth
  * Dokumentasi Lengkap : https://laravel.com/docs/8.x/eloquent
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  */
 class UserModel extends Authenticatable implements JWTSubject, ModelInterface
 {
-    use SoftDeletes, RecordSignature, HasRelationships;
+    use SoftDeletes, HasRelationships, HasFactory;
 
      /**
      * Menentukan nama tabel yang terhubung dengan Class ini
@@ -135,7 +136,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
         $user = $this->query();
-        //dd($user);
+        //dd($filter);
         if (!empty($filter['nama'])) {
             $user->where('nama', 'LIKE', '%'.$filter['nama'].'%');
         }
@@ -143,11 +144,14 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
         if (!empty($filter['email'])) {
             $user->where('email', 'LIKE', '%'.$filter['email'].'%');
         }
+        if (!empty($filter['isAdmin'])) {
+            $user->whereRelation("role","isAdmin","=","0");
+        }
 
         $sort = $sort ?: 'id DESC';
         $user->orderByRaw($sort ?: 'id DESC');
         // Gunakan fitur "Laravel Pagination"
-        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : false;        
+        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : $this->query()->count();        
         return $user->paginate($itemPerPage)->appends('sort', $sort);
     }
     public function getById(int $id): object
@@ -156,6 +160,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
     }
 
     public function store(array $payload){
+        
         return $this->create($payload);
     }
 

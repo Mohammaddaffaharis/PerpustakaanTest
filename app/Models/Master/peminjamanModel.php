@@ -117,25 +117,86 @@ class peminjamanModel extends Model implements ModelInterface
         "));
         return $peminjaman;
     }
-    public function getAllByBuku()
+    public function getAllByBuku($request)
     {
         $peminjaman = [];
-        $peminjaman =  DB::select(DB::raw("
-        SELECT 
-            peminjaman.id,
-            peminjaman.idUser,
-            peminjaman.idBuku,
-            peminjaman.tanggalPinjam,
-            peminjaman.tanggalKembali,
-            user_auth.nama,
-            bukus.judul,
-            if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
-            IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
-            from peminjaman
-            join user_auth on user_auth.id = peminjaman.idUser
-            join bukus on bukus.id = peminjaman.idBuku
-            where peminjaman.deleted_at is null;
-        "));
+        if(($request->tanggalPinjam ==null and $request->tanggalKembali==null)){
+            //dd('pinjam&kembali null');
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null);
+            "));
+        } else
+        if(($request->tanggalPinjam!=null and $request->tanggalKembali!=null)) {
+            //dd('pinjam & kembali not null');
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null and peminjaman.tanggalPinjam >= '".$request->tanggalPinjam."' and peminjaman.tanggalKembali <= '".$request->tanggalKembali."');
+            "));
+        } else
+        if ($request->tanggalPinjam!=null and $request->tanggalKembali==null) {
+            //dd('pinjam not null');
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null and peminjaman.tanggalPinjam >= '".$request->tanggalPinjam."');
+            "));
+        } else
+        if($request->tanggalPinjam==null and $request->tanggalKembali!=null){
+            //dd('kembali not null');
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null and peminjaman.tanggalKembali <= '".$request->tanggalKembali."');
+            "));
+        }
+        //dd($peminjaman);
         $buku =  DB::select(DB::raw("
         select *
             from bukus
@@ -145,6 +206,8 @@ class peminjamanModel extends Model implements ModelInterface
         $detailss = [];
         $listDenda = [];
         $listHari = [];
+        $totalHari = 0;
+        $totalDenda = 0;
         foreach ($buku as $item){
             $denda = 0;
             $hari = 0;
@@ -153,7 +216,9 @@ class peminjamanModel extends Model implements ModelInterface
                 if($item->id == $det->idBuku){
                     array_push($x,$det);
                     $denda = $denda + $det->denda;
+                    $totalDenda = $totalDenda + $det->denda;
                     $hari = $hari + $det->hari;
+                    $totalHari = $totalHari + $det->hari;
                 }
             }
             array_push($listDenda,$denda);
@@ -164,19 +229,124 @@ class peminjamanModel extends Model implements ModelInterface
         $data['peminjam'] = $detailss;
         $data['hari'] = $listHari;
         $data['denda'] = $listDenda;
+        $data['totalDenda'] = $totalDenda;
+        $data['totalHari'] = $totalHari;
         //dd($data);
         return $data;
     }
-    public function getAllByUser()
+    public function getAllByUser($request)
     {
         $peminjaman = [];
-        $peminjaman =  DB::select(DB::raw("
-        
-        "));
-        
-        return $peminjaman;
-    }
+        if(($request->tanggalPinjam ==null and $request->tanggalKembali==null)){
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where peminjaman.deleted_at is null;
+            "));
+        } else if ($request->tanggalPinjam !=null and $request->tanggalKembali!=null){
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null and peminjaman.tanggalPinjam >= '".$request->tanggalPinjam."' and peminjaman.tanggalKembali <= '".$request->tanggalKembali."');
+            "));
 
+        } else if ($request->tanggalPinjam !=null and $request->tanggalKembali==null){
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null and peminjaman.tanggalPinjam >= '".$request->tanggalPinjam."');
+            "));
+
+        } else if ($request->tanggalPinjam ==null and $request->tanggalKembali!=null){
+            $peminjaman =  DB::select(DB::raw("
+            SELECT 
+                peminjaman.id,
+                peminjaman.idUser,
+                peminjaman.idBuku,
+                peminjaman.tanggalPinjam,
+                peminjaman.tanggalKembali,
+                user_auth.nama,
+                bukus.judul,
+                if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1)) AS hari,
+                IF(if(peminjaman.tanggalKembali is null,(DATEDIFF(curdate(), peminjaman.tanggalPinjam)+1),(DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam)+1))>14, if(peminjaman.tanggalKembali is null,(((DATEDIFF(curdate(), peminjaman.tanggalPinjam))-13)*2000),(((DATEDIFF(peminjaman.tanggalKembali, peminjaman.tanggalPinjam))-13)*2000)), null) as denda
+                from peminjaman
+                join user_auth on user_auth.id = peminjaman.idUser
+                join bukus on bukus.id = peminjaman.idBuku
+                where (peminjaman.deleted_at is null and peminjaman.tanggalKembali <= '".$request->tanggalKembali."');
+            "));
+
+        }
+        $user =  DB::select(DB::raw("
+        select *
+            from user_auth
+            where user_auth.deleted_at is null;
+        "));
+
+        $detailss = [];
+        $listDenda = [];
+        $listHari = [];
+        $totalHari = 0;
+        $totalDenda = 0;
+        foreach ($user as $item){
+            $denda = 0;
+            $hari = 0;
+            $x = [];
+            foreach ($peminjaman as $det){
+                if($item->id == $det->idUser){
+                    array_push($x,$det);
+                    $denda = $denda + $det->denda;
+                    $totalDenda = $totalDenda + $det->denda;
+                    $hari = $hari + $det->hari;
+                    $totalHari = $totalHari + $det->hari;
+                }
+            }
+            array_push($listDenda,$denda);
+            array_push($listHari,$hari);
+            array_push($detailss,$x);
+        }
+        $data['user'] = $user;
+        $data['buku'] = $detailss;
+        $data['hari'] = $listHari;
+        $data['denda'] = $listDenda;
+        $data['totalDenda'] = $totalDenda;
+        $data['totalHari'] = $totalHari;
+        //dd($data);
+        return $data;
+    }
+   
     public function store(array $payload) {
         return $this->create($payload);
     }

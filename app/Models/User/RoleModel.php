@@ -45,6 +45,7 @@ class RoleModel extends Model implements ModelInterface
     protected $fillable = [
         'nama',
         'akses',
+        'isAdmin',
     ];
 
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
