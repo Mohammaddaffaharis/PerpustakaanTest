@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api\Master;
 use App\Http\Controllers\Controller;
 use App\Helpers\Master\PeminjamanHelper;
+use App\Helpers\Venturo;
 use Illuminate\Http\Request;
 use App\Http\Resources\Peminjaman\PeminjamanCollection;
 use App\Http\Resources\Peminjaman\PeminjamanResource;
 use App\Http\Requests\Peminjaman\PeminjamanRequest;
 use App\Models\Master\peminjamanModel;
-
+use Illuminate\Support\Str;
+use PDF;
+use Excel;
 class PeminjamanController extends Controller
 {
     private $peminjaman;
@@ -109,16 +112,17 @@ class PeminjamanController extends Controller
     }
     public function getLaporanBuku(Request $request)
     {
-        //dd($request->tanggalKembali);
-        //$request->tanggalPinjam == "null" ? null : $request->tanggalPinjam;
-        //$request->tanggalKembali = $request->tanggalKembali == "null" ? "sadsad" : "hubla";
-        // if($request->tanggalKembali  == "null"){
-        //     "sadsad";
-        // } else{
-        //     "hubla";
-        // };
-        //dd($request->all());
         $listPeminjaman['data'] = $this->peminjamanModel->getAllByBuku($request);
         return $listPeminjaman;
+    }
+    public function generatePdfBuku(Request $request)
+    {
+        $listPeminjaman = $this->peminjamanModel->getAllByBuku($request);
+        return Venturo::PdfDownload('generatePdfBuku', $listPeminjaman, 'Daftar Peminjaman Buku '.$request->tanggalPinjam.' s/d '.$request->tanggalKembali.'.pdf', ['paper'=>'a3','orientation'=>'landscape']);
+    }
+    public function generatePdfUser(Request $request)
+    {
+        $listPeminjaman = $this->peminjamanModel->getAllByUser($request);
+        return Venturo::PdfDownload('generatePdfUser', $listPeminjaman, 'Daftar Peminjaman User '.$request->tanggalPinjam.' s/d '.$request->tanggalKembali.'.pdf', ['paper'=>'a3','orientation'=>'landscape']);
     }
 }

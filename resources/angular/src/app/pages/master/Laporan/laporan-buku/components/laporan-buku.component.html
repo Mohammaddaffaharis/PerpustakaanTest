@@ -9,18 +9,23 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h5>Filter</h5>
+                        <div class="col-md-6 text-left">
+                            <h3>Filter</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Tanggal Pinjam</label>
+                                    <input type="date" name="tanggalPinjam" class="form-control" (change)="SendDataonChangePinjam($event)"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tanggal Kembali</label>
+                                    <input type="date" name="tanggalKembali" class="form-control"   (change)="SendDataonChangeKembali($event)" min="{{tanggal.tanggalPinjam}}"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Tanggal Pinjam</label>
-                            <input type="date" name="tanggalPinjam" class="form-control" (change)="SendDataonChangePinjam($event)"/>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Tanggal Kembali</label>
-                            <input type="date" name="tanggalKembali" class="form-control"   (change)="SendDataonChangeKembali($event)" min="{{tanggal.tanggalPinjam}}"/>
+                        <div class="col-md-6 text-right">
+                            <h3>Convert</h3>
+                            <button type="button" class="btn btn-success btn-lg" style="margin-right: 10px;"><i class='bx bxs-file' (click)="printXLS();"></i>XLS</button>
+                            <button type="button" class="btn btn-danger btn-lg" (click)="printPDF();"><i class='bx bxs-file-pdf'></i>PDF</button>
                         </div>
                     </div>
                 </div>

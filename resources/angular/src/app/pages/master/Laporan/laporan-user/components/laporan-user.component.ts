@@ -60,5 +60,8 @@ export class LaporanUserComponent implements OnInit {
     this.tanggal.tanggalKembali = event.target.value;
     this.getPeminjamanBulan(this.tanggal);
   }
+  printPDF(){
+    window.open("/api/print/generatePdfUser"+"?tanggalPinjam="+this.tanggal.tanggalPinjam+"&tanggalKembali="+this.tanggal.tanggalKembali);
+  }
 
 }

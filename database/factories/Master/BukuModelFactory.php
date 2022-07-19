@@ -20,7 +20,7 @@ class BukuModelFactory extends Factory
             'penulis' => $this->faker->name(),
             'penerbit' => $this->faker->company(),
             'deskripsi' => $this->faker->text($maxNbChars = 200),
-            'tahunTerbit' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+            'tahunTerbit' => $this->faker->numberBetween(1999, 2022),
             'updated_by'=>1,
             'created_by'=>1,
         ];

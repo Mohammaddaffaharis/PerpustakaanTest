@@ -95,3 +95,9 @@ Route::get('/', function () {
 Route::fallback(function () {
     return response()->failed(['Endpoint yang anda minta tidak tersedia']);
 });
+Route::prefix('print')->group(function () {
+    Route::get('/generatePdfBuku/', [PeminjamanController::class, 'generatePdfBuku']);
+    Route::get('/generatePdfUser/', [PeminjamanController::class, 'generatePdfUser']);
+
+    Route::get('/generateXlsBuku/', [PeminjamanController::class, 'generateXlsBuku']);
+});

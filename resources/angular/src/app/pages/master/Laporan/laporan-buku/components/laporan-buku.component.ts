@@ -60,5 +60,12 @@ export class LaporanBukuComponent implements OnInit {
     this.tanggal.tanggalKembali = event.target.value;
     this.getPeminjamanBulan(this.tanggal);
   }
+  printPDF(){
+    window.open("/api/print/generatePdfBuku"+"?tanggalPinjam="+this.tanggal.tanggalPinjam+"&tanggalKembali="+this.tanggal.tanggalKembali);
+  }
+  printXLS(){
+    window.open("/api/print/generateXlsBuku"+"?tanggalPinjam="+this.tanggal.tanggalPinjam+"&tanggalKembali="+this.tanggal.tanggalKembali);
+  }
+    
 
 }
