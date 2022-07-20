@@ -63,5 +63,8 @@ export class LaporanUserComponent implements OnInit {
   printPDF(){
     window.open("/api/print/generatePdfUser"+"?tanggalPinjam="+this.tanggal.tanggalPinjam+"&tanggalKembali="+this.tanggal.tanggalKembali);
   }
+  printXLS(){
+    window.open("/api/print/generateXlsUser"+"?tanggalPinjam="+this.tanggal.tanggalPinjam+"&tanggalKembali="+this.tanggal.tanggalKembali);
+  }
 
 }

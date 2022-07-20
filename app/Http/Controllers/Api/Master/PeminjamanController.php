@@ -1,6 +1,9 @@
 <?php
 
+
 namespace App\Http\Controllers\Api\Master;
+use App\Exports\Laporan\ExportBuku;
+use App\Exports\Laporan\ExportUser;
 use App\Http\Controllers\Controller;
 use App\Helpers\Master\PeminjamanHelper;
 use App\Helpers\Venturo;
@@ -9,9 +12,7 @@ use App\Http\Resources\Peminjaman\PeminjamanCollection;
 use App\Http\Resources\Peminjaman\PeminjamanResource;
 use App\Http\Requests\Peminjaman\PeminjamanRequest;
 use App\Models\Master\peminjamanModel;
-use Illuminate\Support\Str;
-use PDF;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 class PeminjamanController extends Controller
 {
     private $peminjaman;
@@ -124,5 +125,11 @@ class PeminjamanController extends Controller
     {
         $listPeminjaman = $this->peminjamanModel->getAllByUser($request);
         return Venturo::PdfDownload('generatePdfUser', $listPeminjaman, 'Daftar Peminjaman User '.$request->tanggalPinjam.' s/d '.$request->tanggalKembali.'.pdf', ['paper'=>'a3','orientation'=>'landscape']);
+    }
+    public function generateXlsBuku(Request $request){
+        return Excel::download(new ExportBuku($request),'Daftar Peminjaman Buku '.$request->tanggalPinjam.' sd '.$request->tanggalKembali.'.xlsx');
+    }
+    public function generateXlsUser(Request $request){
+        return Excel::download(new ExportUser($request),'Daftar Peminjaman User '.$request->tanggalPinjam.' sd '.$request->tanggalKembali.'.xlsx');
     }
 }

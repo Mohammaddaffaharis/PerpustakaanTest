@@ -100,4 +100,5 @@ Route::prefix('print')->group(function () {
     Route::get('/generatePdfUser/', [PeminjamanController::class, 'generatePdfUser']);
 
     Route::get('/generateXlsBuku/', [PeminjamanController::class, 'generateXlsBuku']);
+    Route::get('/generateXlsUser/', [PeminjamanController::class, 'generateXlsUser']);
 });
